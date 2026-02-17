@@ -113,7 +113,7 @@ namespace Airflights
                 Console.WriteLine("🌐 Swagger UI: http://localhost:5000/swagger");
                 Console.WriteLine("⏹️  Для остановки нажмите Ctrl+C\n");
                 
-                _app.Run();
+                _app.Run("http://127.0.0.1:5000");
             }
             catch (Exception ex)
             {
