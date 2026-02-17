@@ -1,0 +1,46 @@
+@page
+
+
+@model Airflights.Pages.Aircraft.IndexModel
+
+<div style="display: ruby-text;">
+    <a href="/Staf" class="header-link">Рейсы</a>
+    <a href="/Routes" class="header-link">Маршруты</a>
+    <h1>Самолеты</h1>
+</div>
+<span>@Model.Message</span>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Самолет</th>
+            <th>Аэропорт</th>
+            <th>Всего мест</th>
+            <th>Статус</th>
+            <th>Actions</th>
+            <th><a href="/aircrafts/create" class="btn btn-sm btn-info">Добавить</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.AirportCode</td>
+                <td>@item.TotalSeats</td>
+                <td>@item.Status</td>
+                <td>
+                    <a href="/staf/aircraft/@item.Id" class="btn btn-sm btn-info">Details</a>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>
+<div class="mt-3">
+    <a href="/swagger" class="btn btn-secondary">API Documentation</a>
+    @* <button onclick="refreshData()" class="btn btn-primary">Refresh</button> *@
+    <form method="post" style="display: inline;">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Выйти</button>
+    </form>
+</div>

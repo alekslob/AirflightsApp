@@ -1,0 +1,49 @@
+@page
+
+@model Airflights.Pages.Aircraft.CreateModel
+
+
+<h1>Добавление самолета </h1>
+<span>@Model.Message</span>
+<table>
+    <form method="post">
+        <tr>
+            <td>Модель:</td>
+            <td><select  type="text" name="modelkey" style="width: 200px" required>
+                @foreach(var item in Model.AircraftModels){
+                    <option value="@item.Key">@item.Value</option>
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td>Код:</td>
+            <td><input type="text" name="aircraftcode" style="width: 200px" required/></td>
+        </tr>
+        <tr>
+            <td>Название:</td>
+            <td><input type="text" name="aircraftname" style="width: 200px" required/></td>
+        </tr>
+        <tr>
+            <td>Аэропорт:</td>
+            <td><select  type="text" name="airportkey" style="width: 200px" required>
+                @foreach(var item in Model.Airports){
+                    <option value="@item.Key">@item.Value</option>
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td>Статус:</td>
+            <td><select  type="text" name="statuskey" style="width: 200px" required>
+                @foreach(var item in Model.AircraftStatuses){
+                    <option value="@item.Key">@item.Value</option>
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td></td><td><input type="submit" value="Сохранить" /></td>
+        </tr>
+    </form>
+</table>
+<div class="mt-3">
+    <a href="/aircrafts" class="btn btn-secondary">Назад</a>
+</div>

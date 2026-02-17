@@ -1,0 +1,72 @@
+@page "{id}"
+@using Airflights.Models
+@{
+    var userid = RouteData.Values["id"];
+}
+@model Airflights.Pages.Staf.FlightModel
+
+<h1>Инфо о рейсе </h1>
+
+@if(Model.FlightShedule == null){
+    <h2>Нет данных</h2>
+} else {
+<table>
+    <form method="post" >
+        <tr>
+            <td>Номер рейса:</td><td>@Model.FlightShedule.Number</td><td>@Model.Message</td>
+        </tr>
+        <tr><td>Самолет</td>
+                @if(Model.ShowChooseAircrafts){
+                    <td>
+                        @if(Model.Aircrafts.Count != 0){
+                            <select  type="text" name="aitkraftid">
+                                @foreach(var item in Model.Aircrafts){
+                                        <option value="@item.Key">@item.Value</option>
+                                }
+                            </select>
+                        } else {
+                            <span>Нет доступных самолетов</span>
+                        }
+                    </td>
+                } else {
+                    <td>@Model.FlightShedule.AircraftName</td>
+                    @if(Model.CanEditAirflight){
+                        <td><a href="?showChoose=true">Изменить</a></td>
+                    }
+                }
+                        
+        </tr>
+        <tr>
+                <td>Статус</td>
+                @if(Model.ShowChooseStatus){
+                    <td><select  type="text" name="statuskey">
+                    @foreach(var item in Model.FlightsStatuses){
+                        if (item.Key == (int)Model.FlightShedule.Status)
+                        {
+                            <option value="@item.Key" selected>@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                    }
+                    </select></td>
+                } else {
+                    <td>@Model.FlightShedule.Status.ToString()</td>
+                    @if(Model.CanEditStatus){
+                         <td><a href="?showStatus=true">Изменить</a></td>
+                    }
+                }
+        </tr>
+        <tr>
+            
+            @if(Model.CanSavedChenges){
+                <td></td><td><input type="submit" value="Сохранить" /></td>
+            }
+        </tr>
+    </form>
+</table>
+<div class="mt-3">
+    <a href="/staf" class="btn btn-secondary">Назад</a>
+</div>
+}

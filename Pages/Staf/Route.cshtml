@@ -1,0 +1,77 @@
+@page "{id}"
+@using Airflights.Models
+@{
+    var userid = RouteData.Values["id"];
+}
+@model Airflights.Pages.Route.RouteModel
+
+<h1>Инфо о маршруте </h1>
+<span>@Model.Message</span>
+@if(Model.FlightInfo == null){
+    <h2>Нет данных</h2>
+} else {
+<table>
+    <form method="post">
+        <tr>
+            <td>Номер рейса:</td>
+            <td>@Model.FlightInfo.Number</td>
+        </tr>
+        <tr>
+            <td>Аэропорт вылета:</td>
+            <td>@Model.FlightInfo.DepartureAirportCode</td>
+        </tr>
+        <tr>
+            <td>Аэропорт прилета:</td>
+            <td>@Model.FlightInfo.ArrivalAirportCode</td>
+        </tr>
+        <tr>
+            <td>Время вылета:</td>
+            <td>@Model.FlightInfo.ScheduledArrival.ToString("hh:mm")</td>
+        </tr>
+        <tr>
+            <td>Время прилета:</td>
+            <td>@Model.FlightInfo.ScheduledDeparture.ToString("hh:mm")</td>
+        </tr>
+        
+        <tr>
+            <td>Частота:</td>
+            <td>@Model.FlightInfo.Pattern</td>
+        </tr>
+        
+        <tr>
+            <td>Статус:</td>
+            @if(Model.ShowChooseStatus){
+                <td>
+                    @{
+                        bool isActive = Model.FlightInfo.IsActive;
+                    }
+                    @* <label >
+                        @(isActive ? "Активный" : "Приостановлен")
+                    </label> *@
+                    <input type="checkbox" 
+                        name="status" 
+                        @(isActive ? "checked" : "") 
+                        value="true" />
+                </td>
+            } else{
+                <td>
+                @if(Model.FlightInfo.IsActive){
+                    <span>Активный</span>
+                } else {
+                    <span>Присотановлен</span>
+                }</td>
+                <td><a href="?showStatus=True">Изменить</a></td>
+            }
+        </tr>
+        <tr>
+            
+            @if(Model.CanSavedChenges){
+                <td></td><td><input type="submit" value="Сохранить" /></td>
+            }
+        </tr>
+    </form>
+</table>
+<div class="mt-3">
+    <a href="/routes" class="btn btn-secondary">Назад</a>
+</div>
+}

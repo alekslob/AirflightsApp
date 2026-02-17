@@ -1,0 +1,93 @@
+@page
+
+@model Airflights.Pages.Route.CreateModel
+
+
+<h1>Добавление маршрута </h1>
+<span style="color: red;">@Model.Message</span>
+<table>
+    <form method="post">
+        <tr>
+            <td>Номер рейса:</td>
+            <td><input type="text" 
+                       value="@Model.FlightName" name="flightname" style="width: 200px" required/></td>
+        </tr>
+        <tr>
+            <td>Аэропорт вылета:</td>
+            <td><select  type="text" name="airportdeparturekey"
+                        id="airportdeparturekey"  style="width: 200px" required>
+                @foreach(var item in Model.Airports){
+                    if (item.Key == (int)Model.AirportDepartureKey)
+                        {
+                            <option value="@item.Key" selected>@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td>Аэропорт прилета:</td>
+            <td><select  type="text" name="airportarrivalkey" 
+                        id="airportarrivalkey" style="width: 200px" required>
+                @foreach(var item in Model.Airports){
+                    if (item.Key == (int)Model.AirportArrivalKey)
+                        {
+                            <option value="@item.Key" selected>@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td>Время вылета:</td>
+            <td>
+                <input type="time" 
+                name="timedepartured" 
+                value="@Model.TimeDepartured" 
+                id="timedepartured"
+                step="60"
+                required />
+            </td>
+        </tr>
+        <tr>
+            <td>Время прилета:</td>
+            <td>
+                <input type="time" 
+               name="timearrival" 
+                value="@Model.TimeArrival" 
+               id="timearrival"
+               step="60"
+               required />
+            </td>
+        </tr>
+        <tr>
+            <td>Частота:</td>
+            
+            <td><select  type="text" name="patternkey" style="width: 200px" required>
+                @foreach(var item in Model.FlightsPatterns){
+                    <option value="@item.Key">@item.Value</option>
+                }
+            </select></td>
+        </tr>
+        <tr>
+            <td></td><td><input type="submit" value="Сохранить" /></td>
+        </tr>
+    </form>
+</table>
+<div class="mt-3">
+    <a href="/routes" class="btn btn-secondary">Назад</a>
+</div>
+
+@section Scripts {
+    <script>
+        function refreshData() {
+            location.reload();
+        }
+    </script>
+}

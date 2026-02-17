@@ -1,0 +1,58 @@
+@page "{id}"
+@using Airflights.Models
+@{
+    var userid = RouteData.Values["id"];
+}
+@model Airflights.Pages.Aircraft.AircraftModel
+
+<h1>Инфо о самолете </h1>
+<span>@Model.Message</span>
+@if(Model.AircraftInfo == null){
+    <h2>Нет данных</h2>
+} else {
+<table>
+    <form method="post">
+        <tr>
+            <td>Название:</td>
+            <td>@Model.AircraftInfo.Name</td>
+        </tr>
+        <tr>
+            <td>Аэропорт:</td>
+            <td>@Model.AircraftInfo.AirportCode</td>
+        </tr>
+        <tr>
+            <td>Статус:</td>
+            @if(Model.ShowChooseStatus){
+                <td><select  type="text" name="statuskey">
+                    @foreach(var item in Model.AircraftStatuses){
+                        if (item.Key == (int)Model.AircraftInfo.Status)
+                        {
+                            <option value="@item.Key" selected>@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                    }
+                </select></td>
+
+            } else {
+                <td>@Model.AircraftInfo.Status.ToString()</td>
+                @if(Model.CanEditStatus){
+                    <td><a href="?showStatus=true">Изменить</a></td>
+                }
+            }
+        </tr>
+        
+        <tr>
+            
+            @if(Model.CanSavedChenges){
+                <td></td><td><input type="submit" value="Сохранить" /></td>
+            }
+        </tr>
+    </form>
+</table>
+<div class="mt-3">
+    <a href="/aircrafts" class="btn btn-secondary">Назад</a>
+</div>
+}
