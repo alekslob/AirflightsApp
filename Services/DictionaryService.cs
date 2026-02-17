@@ -14,6 +14,7 @@ namespace Airflights.Services
         Task<List<DictionaryBaseModel>> GetAirportsAsync();
         Task<List<DictionaryBaseModel>> GetFlightStatusesAsync();
         Task<List<DictionaryBaseModel>> GetFlightPatternsAsync();
+        Task<List<DictionaryBaseModel>> GetCitiesAsync();
     }
 
     public class DictionaryService: IDictionaryService
@@ -81,6 +82,16 @@ namespace Airflights.Services
                 Key = (int)pattern,
                 Value=pattern.ToString()
             }).ToList();
+        }
+        public async Task<List<DictionaryBaseModel>> GetCitiesAsync()
+        {
+            return await _context.Cities.Select(
+                city => new DictionaryBaseModel
+                {
+                    Key = city.Id,
+                    Value = city.Name
+                }
+            ).ToListAsync();
         }
     }
 }

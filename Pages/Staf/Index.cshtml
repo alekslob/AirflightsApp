@@ -9,6 +9,17 @@
     <a href="/Aircrafts" class="header-link">Самолеты</a>
 </div>
 <span>@Model.Message</span>
+<div>
+<form method="get">
+    <span>Пункт назначения</span>
+    <select type="text" name="citieskey" value="@Model.CitiesKey">
+        @foreach(var item in Model.Cities){
+            <option value="@item.Key">@item.Value</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-danger">Применить</button>
+</form>
+</div>
 <table class="table">
     <thead>
         <tr>

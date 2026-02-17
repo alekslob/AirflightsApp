@@ -42,7 +42,7 @@ namespace Airflights.Pages.Staf
                 && FlightShedule?.Status == FlightStatus.Departed ? status.Key==(int)FlightStatus.Arrived : true
                 && FlightShedule?.Status == FlightStatus.Delayed ? new List<int>{0,1,4}.Contains(status.Key) : true
                 && FlightShedule?.Status == FlightStatus.Cancelled ? new List<int>{0,1,4,5}.Contains(status.Key) : true
-                ).Where(status => FlightShedule.AircraftName!=null ? status.Key!=(int)FlightStatus.Boarding:true).ToList();
+                ).ToList();
             Aircrafts = await _dictionaryService.GetAircraftsAsync(FlightShedule.DepartureAirportId);
         }
         

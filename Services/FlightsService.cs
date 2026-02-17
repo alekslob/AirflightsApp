@@ -27,6 +27,7 @@ namespace Airflights.Services
                 flight => new FlightViewModel
                 {
                     Id = flight.Id, 
+                    ArrivalAirportName = flight.ArrivalAirport.Name,
                     Number = flight.Number,
                     ArrivalAirportCode = flight.ArrivalAirport.IadaCode,
                     DepartureAirportCode = flight.DepartureAirport.IadaCode,
@@ -46,6 +47,7 @@ namespace Airflights.Services
                     {
                         Id = flight.Id, 
                         Number = flight.Number,
+                        ArrivalAirportName = flight.ArrivalAirport.Name,
                         ArrivalAirportCode = flight.ArrivalAirport.IadaCode,
                         DepartureAirportCode = flight.DepartureAirport.IadaCode,
                         Pattern = flight.Pattern,

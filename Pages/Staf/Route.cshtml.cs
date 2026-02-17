@@ -11,7 +11,8 @@ namespace Airflights.Pages.Route
     public class RouteModel : PageModel
     {
         private readonly IFlightsService _flightsService;
-        public RouteModel(IFlightsService flightsService)
+        public RouteModel(IFlightsService flightsService,
+                        IDictionaryService dictionaryService)
         {
             _flightsService=flightsService;
         }

@@ -19,7 +19,9 @@
             <th>Частота</th>
             <th>Cтатус</th>
             <th>Actions</th>
-            <th><a href="/routes/create" class="btn btn-sm btn-info">Добавить</a></th>
+            @if(Model.CanCreate){
+                <th><a href="/routes/create" class="btn btn-sm btn-info">Добавить</a></th>
+                }
         </tr>
     </thead>
     <tbody>
@@ -29,7 +31,7 @@
                 <td>@item.Number</td>
                 <td>@item.DepartureAirportCode</td>
                 <td>@item.ArrivalAirportCode</td>
-                <td>@item.DepartureAirportCode</td>
+                <td>@item.ArrivalAirportName</td>
                 <td>@item.Pattern</td>
                 @if(@item.IsActive){
                     <td>Активен</td>

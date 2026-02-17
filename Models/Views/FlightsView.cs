@@ -6,6 +6,7 @@ namespace Airflights.Models
         public string Number {get; set;} = string.Empty;
         public string DepartureAirportCode {get; set;} = string.Empty;
         public string ArrivalAirportCode {get;set;} = string.Empty;
+        public string ArrivalAirportName {get; set;} = string.Empty;
         public DateTime ScheduledDeparture {get;set;}
         public DateTime ScheduledArrival {get;set;}
         public RecurrencePattern Pattern {get; set;} = RecurrencePattern.Daily;

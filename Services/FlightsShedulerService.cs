@@ -7,7 +7,7 @@ namespace Airflights.Services
     public interface IFlightsShedulerService
     {
         Task<FlightShedulerViewModel?> GetByIdAsync(int id);
-        Task<List<FlightShedulerViewModel>> GetAllAsync(FlightStatus? status = null, DateTime? DepartureTimeStart = null, DateTime? DepartureTimeEnd = null, int? FlightId = null);
+        Task<List<FlightShedulerViewModel>> GetAllAsync(FlightStatus? status = null, DateTime? DepartureTimeStart = null, DateTime? DepartureTimeEnd = null, int? FlightId = null, int? cityId = null);
         Task<FlightShedule> CreateAsync(FlightsShedulerCreateModel data);
         Task<FlightShedule> UpdateAsync(FlightShedulerEditModel data);
     }
@@ -38,13 +38,14 @@ namespace Airflights.Services
                 }
             ).FirstOrDefaultAsync(f => f.Id == id);
         }
-        public async Task<List<FlightShedulerViewModel>> GetAllAsync(FlightStatus? status = null, DateTime? DepartureTimeStart = null, DateTime? DepartureTimeEnd = null, int? FlightId = null)
+        public async Task<List<FlightShedulerViewModel>> GetAllAsync(FlightStatus? status = null, DateTime? DepartureTimeStart = null, DateTime? DepartureTimeEnd = null, int? FlightId = null, int? cityId = null)
         {
             var res = await _context.FlightShedules.Where(f => 
                                                         status != null ? f.Status == status : true &&
                                                         DepartureTimeStart != null ? f.ActualDeparture >= DepartureTimeStart : true &&
                                                         DepartureTimeEnd != null ? f.ActualDeparture <= DepartureTimeEnd : true &&
-                                                        FlightId != null ? f.FlightId ==FlightId : true
+                                                        FlightId != null ? f.FlightId ==FlightId : true &&
+                                                        cityId != null ? f.Flight.ArrivalAirport.CityId == cityId : true
                                                         ).OrderByDescending(f => f.ActualDeparture).Select(
                 flight => new FlightShedulerViewModel
                 {

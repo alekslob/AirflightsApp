@@ -73,6 +73,26 @@ namespace Airflights.Data
             await _context.SaveChangesAsync();
             _logger.LogInformation("✅ Тестовые данные добавлены.");
         }
+        private async Task SeedTestDataUserManager()
+        {
+            string baseLogin = "man";
+            string basePwd = "111";
+            var system = await _context.Users.FirstOrDefaultAsync(u => u.Login == baseLogin); 
+            if (system != null) return;
+            _logger.LogInformation("➕ Добавляем базовый аккаунт");
+            var user = new User
+            {
+                Name = "Манагер",
+                Login = baseLogin,
+                Hash = PasswordHelper.HashPassword(basePwd),
+                Role = UserRoles.Manager,
+                CreatedAt = DateTime.Now
+
+            };
+            await _context.Users.AddRangeAsync(user);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("✅ Тестовые данные добавлены.");
+        }
         private async Task SeedTestDataCities()
         {
             var count = await _context.Cities.CountAsync();
@@ -237,6 +257,7 @@ namespace Airflights.Data
         private async Task SeedTestDataAsync()
         {
             await SeedTestDataUser();
+            await SeedTestDataUserManager();
             await SeedTestDataCities();
             await SeedTestDataAirports();
             await SeedTestDataAircraftModels();
