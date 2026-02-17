@@ -13,6 +13,7 @@ namespace Airflights
         {
             
             var builder = WebApplication.CreateBuilder(args);
+            builder.WebHost.UseUrls("http://0.0.0.0:5000");
             builder = ConfigureServices(builder);
             _app = builder.Build();
             ConfigurePipeline();
@@ -58,7 +59,6 @@ namespace Airflights
             builder.Services.AddEndpointsApiExplorer();
 
             // Swagger/OpenAPI
-            builder.WebHost.UseUrls("http://0.0.0.0:5000");
             builder.Services.AddOpenApiDocument(config =>
             {
                 config.DocumentName = "AirflitsAPI";
